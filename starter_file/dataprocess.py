@@ -1,5 +1,18 @@
 import pandas as pd 
 import numpy as np 
+from sklearn.linear_model import LogisticRegression
+import argparse
+import os
+import numpy as np
+import joblib
+from sklearn.model_selection import train_test_split
+import pandas as pd
+from azureml.core.run import Run
+from azureml.data.dataset_factory import TabularDatasetFactory
+from azureml.core import Dataset, Datastore
+from azureml.data.datapath import DataPath
+from azureml.core import Workspace
+
 
 def clean_data(dataset):
     ### standardization
@@ -23,11 +36,44 @@ def clean_data(dataset):
     #pd.set_option('display.max_rows', x_df.shape[0]+1)
     #print(x_df)
     return x_df, y_df
-
-# def main():
     
 
+def main():
+    # Add arguments to script
+    parser = argparse.ArgumentParser(description= 'This is Training Script of Tabular Dataset')
 
-# if __name__ == '__main__':
-#     main()
+    parser.add_argument('--batch_size', type=int, default=10, help="The batch size")
+    parser.add_argument('--max_iter', type=int, default=100, help="Maximum number of iterations to converge")
+
+    args = parser.parse_args()
+
+    run.log("Batch size:", np.int(args.batch_size))
+    run.log("Max iterations:", np.int(args.max_iter))
+
+    model = LogisticRegression(batch_size=args.batch_size, max_iter=args.max_iter).fit(x_train, y_train)
+
+    accuracy = model.score(x_test, y_test)
+    run.log("Accuracy", np.float(accuracy))
+    os.makedirs('outputs', exist_ok=True)
+    joblib.dump(value=model, filename='./outputs/model.pkl')
+
+    
+# TODO: Create TabularDataset using TabularDatasetFactory
+# Data is located at: 
+ws = Workspace.from_config()
+if "heart-dataset" in ws.datasets.keys(): 
+        found = True
+        ds = ws.datasets[key] 
+
+x, y = clean_data(ds)
+
+# TODO: Split data into train and test sets.
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.30) #Train data 70% Test data 30%
+    
+run = Run.get_context()
+
+
+
+if __name__ == '__main__':
+    main()
 
