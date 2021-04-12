@@ -60,8 +60,8 @@ def main():
     
 # TODO: Create TabularDataset using TabularDatasetFactory
 # Data is located at: 
-ds = pd.read_csv('heart.csv')
-
+#ds = pd.read_csv('heart.csv')
+ds = TabularDatasetFactory.from_delimited_files(path="heart.csv")
 x, y = clean_data(ds)
 
 # TODO: Split data into train and test sets.
