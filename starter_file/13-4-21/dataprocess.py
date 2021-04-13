@@ -27,18 +27,18 @@ def clean_data(dataset):
     ### binning
     min_value = x_df['age'].min()
     max_value = x_df['age'].max()
-    bins = np.linspace(min_value,max_value,7)
+   # bins = np.linspace(min_value,max_value,7)
     #print(bins)
-    labels = ["29-37", "38-45", "46-53", "54-61", "62-69", "70-77"]
-    x_df['age_bins'] = pd.cut(x_df['age'], bins=bins, labels=labels, include_lowest=True)
+    #labels = ["29-37", "38-45", "46-53", "54-61", "62-69", "70-77"]
+    x_df['age_bins'] = pd.cut(x_df['age'], bins=7, labels = False) #bins=bins, labels=labels, include_lowest=True)
     drop_age = x_df.pop("age") #drop age column
 
     ### rearrange columns
     x_df = x_df[['age_bins', 'sex', 'cp', 'trestbps', 'chol', 'fbs', 'restecg', 'thalach', 'exang', 'oldpeak', 'slope', 'ca', 'thal']]
     #pd.set_option('display.max_rows', x_df.shape[0]+1)
     #print(x_df)
-    print(x_df.head())
-    print(y_df.head())
+   # print(x_df.head())
+    #print(y_df.head())
     return x_df, y_df
     
 
@@ -65,7 +65,7 @@ def main():
 # TODO: Create TabularDataset using TabularDatasetFactory
 # Data is located at: 
 ds = pd.read_csv('heart.csv')
-#ds = TabularDatasetFactory.from_delimited_files(path="heart.csv")
+#ds = TabularDatasetFactory.from_delimited_files("heart.csv")
 x, y = clean_data(ds)
 
 # TODO: Split data into train and test sets.
