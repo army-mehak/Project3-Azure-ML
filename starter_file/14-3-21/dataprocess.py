@@ -21,24 +21,18 @@ def clean_data(dataset):
     x_df = dataset.dropna() #drop any rows with null values
     y_df = x_df.pop("target")
     x_df[['trestbps', 'chol', 'thalach']] = StandardScaler().fit_transform(x_df[['trestbps', 'chol', 'thalach']])
-    #print(x_df)
-    #print(y_df)
 
     ### binning
     min_value = x_df['age'].min()
     max_value = x_df['age'].max()
-   # bins = np.linspace(min_value,max_value,7)
-    #print(bins)
-    #labels = ["29-37", "38-45", "46-53", "54-61", "62-69", "70-77"]
     x_df['age_bins'] = pd.cut(x_df['age'], bins=7, labels = False) #bins=bins, labels=labels, include_lowest=True)
-    drop_age = x_df.pop("age") #drop age column
+    
+    ### drop age column
+    drop_age = x_df.pop("age") 
 
     ### rearrange columns
     x_df = x_df[['age_bins', 'sex', 'cp', 'trestbps', 'chol', 'fbs', 'restecg', 'thalach', 'exang', 'oldpeak', 'slope', 'ca', 'thal']]
-    #pd.set_option('display.max_rows', x_df.shape[0]+1)
-    #print(x_df)
-   # print(x_df.head())
-    #print(y_df.head())
+  
     return x_df, y_df
     
 
@@ -46,15 +40,15 @@ def main():
     # Add arguments to script
     parser = argparse.ArgumentParser(description= 'This is Training Script of Tabular Dataset')
 
-    #parser.add_argument('--batch_size', type=int, default=10, help="The batch size")
+    parser.add_argument('--C', type=float, default=1.0, help="Inverse of regularization strength. Smaller values cause stronger regularization")
     parser.add_argument('--max_iter', type=int, default=100, help="Maximum number of iterations to converge")
 
     args = parser.parse_args()
 
-    #run.log("Batch size:", np.int(args.batch_size))
+    run.log("Regularization Strength:", np.float(args.C))
     run.log("Max iterations:", np.int(args.max_iter))
 
-    model = LogisticRegression(max_iter=args.max_iter).fit(x_train, y_train)
+    model = LogisticRegression(max_iter=args.max_iter, C=args.C).fit(x_train, y_train)
 
     accuracy = model.score(x_test, y_test)
     run.log("Accuracy", np.float(accuracy))
