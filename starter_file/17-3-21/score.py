@@ -1,6 +1,8 @@
 import joblib
 import numpy as np
 import os
+import pickle
+import json
 
 from inference_schema.schema_decorators import input_schema, output_schema
 from inference_schema.parameter_types.numpy_parameter_type import NumpyParameterType
@@ -22,9 +24,15 @@ def init():
     print("Found model:",os.path.isfile(model_path))
     print("HHHHH3")
     print(model_path)
-    
+    print("what")
+    #with open(model_path,'rb') as f:
+     #   data = pickle.load(f)
+    #print("HHHHH4")
+    #with open('model.json','w+') as g:
+     #   json.dump(data,g)
+    print("HHHHH5")
     model = joblib.load(model_path)
-    print("HHHHHH4")
+    print("HHHHHH6")
 
 # The run() method is called each time a request is made to the scoring API.
 #
