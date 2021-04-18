@@ -5,8 +5,6 @@ import pickle
 import json
 import pandas as pd
 
-from inference_schema.schema_decorators import input_schema, output_schema
-from inference_schema.parameter_types.numpy_parameter_type import NumpyParameterType
 
 
 # The init() method is called once, when the web service starts up.
@@ -20,20 +18,14 @@ def init():
     # The AZUREML_MODEL_DIR environment variable indicates
     # a directory containing the model file you registered.
     model_filename = 'model.pkl'
-    print("HHHHH2")
+
     model_path = os.path.join(os.environ['AZUREML_MODEL_DIR'], model_filename)
     print("Found model:",os.path.isfile(model_path))
-    print("HHHHH3")
+    
     print(model_path)
-    print("what")
-    #with open(model_path,'rb') as f:
-     #   data = pickle.load(f)
-    #print("HHHHH4")
-    #with open('model.json','w+') as g:
-     #   json.dump(data,g)
-    print("HHHHH5")
+
     model = joblib.load(model_path)
-    print("HHHHHH6")
+
 
 # The run() method is called each time a request is made to the scoring API.
 #
@@ -45,12 +37,10 @@ def init():
 
 def run(data):
     # Use the model object loaded by init().
-    print('11111111111111111')
     
     data_load = json.loads(data)
-    print('22222222222222222222222222')
     data = pd.DataFrame.from_dict(data_load['data'])
-    print('3333333333333333333333333333333')
+    
     result = model.predict(data)
 
     # You can return any JSON-serializable object.
