@@ -13,7 +13,6 @@ import pandas as pd
 # and store it in a global variable so your run() method can access it later.
 def init():
     global model
-    print("HHHHH1")
 
     # The AZUREML_MODEL_DIR environment variable indicates
     # a directory containing the model file you registered.

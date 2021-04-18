@@ -1,10 +1,11 @@
 # Capstone Project - Azure Machine Learning Engineer
-The aim of the project is to compare model performances and choose the best for performance. In this project, heart disease dataset is adapted from Kaggle to perform classification using AutoML and customized model through hypertuning. In the end, the best model will get deployed as a webservice.
+The aim of the project is to classify heart disease dataset by comparing model performances of 2 models. In this project, heart disease dataset was adapted from Kaggle to perform classification using AutoML and customized model through hypertuning. The best of the 2 model was deployed and then used as a webservice to predict data. 
 
 
 ## Dataset
-The dataset consists of data record of patient from their age, gender, blood pressure level to their heart rate. It is adapted from Kaggle Open Dataset. It is a classification problem that determines whether a person has a heart disease or not. The classification is a binary classification with 0 representing an absence of heart disease and 1 representing presence of heart disease.
-The dataset consist information of patient that might be having heart disease. The target column has values 0 and 1 which determines if the patients has heart disease. There are 14 attributes in the dataset as follows:
+
+### Overview
+The dataset consists of data record of patient from their age, gender, blood pressure level to their heart rate. It is adapted from Kaggle Open Dataset. It is a classification problem that determines whether a person has a heart disease or not. There are 14 attributes in the dataset as follows:
 1. age
 2. sex
 3. chest pain type
@@ -20,26 +21,44 @@ The dataset consist information of patient that might be having heart disease. T
 13. thal: 3 = normal; 6 = fixed defect; 7 = reversible defect
 14. target column, 0 = heart disease not present, 1 = heart disease present
 
-### Overview
 In this project, the heart dataset was used to create an AutoML model and a customized model by tuning hyperparameters. The data was taken from Kaggle and preprocessed. Some large values on some attributes were standardized and binning was performed on the age column. After preprocessing the data, the data was fed into AutoML model and the best model was Voting Ensemble with 92.X% accuracy. The preprocessed data was also fed into a custom model of Logistic Regression was created where parameter hyperparameter tuning and the best model had an accuracy of 88.X%. The Voting Ensemble model from AutoML was deployed as a webservice and the rest endpoint HTTP was available.
 
 ### Task
-*TODO*: Explain the task you are going to be solving with this dataset and the features you will be using for it.
+The classification is a binary classification with 0 representing an absence of heart disease and 1 representing presence of heart disease.
+The dataset consist information of patient that might be having heart disease. The target column has values 0 and 1 which determines if the patients has heart disease. 
+
+The following steps were adapted for processing the data:
+1. On the age column, binning was performed into 7 groups from 0-7 to allow less computational cost.
+2. Standardization was performed on attributes trestbps, chol and thalach to reduce the value.
+3. Null value rows were dropped.
 
 ### Access
-*TODO*: Explain how you are accessing the data in your workspace.
+The dataset can be downloaded from Kaggle into your project workspace as blob data URI. The data can then further be broken down into train and test data for training and predicting.
+For the AutoML, the data was uploaded on Azure platform and called through the notebook using available datasets under current workspace. The data was then send for preprocessing as pandas dataframe and then available for training.
+For the Hyperdrive, the data was used as a csv file which was preprocessed and then used directly from the current directory.
 
 ## Automated ML
-*TODO*: Give an overview of the `automl` settings and configuration you used for this experiment
+*TODO*: Give an overview of the `utoml` settings and configuration you used for this experiment
+AutoML settings is defined and passed to AutoML configuration as a parameters. AutoML settings: {"experiment_timeout_minutes": 20", max_concurrent_iterations": 5,"primary_metric": 'AUC_weighted'}. In AutoML configuration, the train data was passed as parameter along with the type of problem this is i.e. classification.
 
 ### Results
 *TODO*: What are the results you got with your automated ML model? What were the parameters of the model? How could you have improved it?
+The best AutoML model was Voting Ensemble with an accuracy of 95%. The Voting Ensemble used multiple algorithms such as:
+- 
+- 
+- 
+- 
+The AutoML settings could have been changed by decreasing the experiment timeout minutes as the simple classification was quick to run.
+
 
 *TODO* Remeber to provide screenshots of the `RunDetails` widget as well as a screenshot of the best model trained with it's parameters.
+(add screenshot of run widget)
+(add screenshot of best model)
+(add screenshot through azure)
 
 ## Hyperparameter Tuning
 *TODO*: What kind of model did you choose for this experiment and why? Give an overview of the types of parameters and their ranges used for the hyperparameter search
-
+Logistic Regression was chosen as a model as its best suited for binary classification problem. 
 
 ### Results
 *TODO*: What are the results you got with your model? What were the parameters of the model? How could you have improved it?
