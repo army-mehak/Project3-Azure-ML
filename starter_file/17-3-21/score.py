@@ -3,6 +3,7 @@ import numpy as np
 import os
 import pickle
 import json
+import pandas as pd
 
 from inference_schema.schema_decorators import input_schema, output_schema
 from inference_schema.parameter_types.numpy_parameter_type import NumpyParameterType
@@ -41,10 +42,15 @@ def init():
 # run() method parses and validates the incoming payload against
 # the example input you provide here. This will also generate a Swagger
 # API document for your web service.
-@input_schema('data', NumpyParameterType(np.array([[0.1, 1.2, 2.3, 3.4, 4.5, 5.6, 6.7, 7.8, 8.9, 9.0]])))
-@output_schema(NumpyParameterType(np.array([4429.929236457418])))
+
 def run(data):
     # Use the model object loaded by init().
+    print('11111111111111111')
+    
+    data_load = json.loads(data)
+    print('22222222222222222222222222')
+    data = pd.DataFrame.from_dict(data_load['data'])
+    print('3333333333333333333333333333333')
     result = model.predict(data)
 
     # You can return any JSON-serializable object.
