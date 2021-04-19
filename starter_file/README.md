@@ -1,6 +1,19 @@
 # Capstone Project - Azure Machine Learning Engineer
 The aim of the project is to classify heart disease dataset by comparing model performances of 2 models. In this project, heart disease dataset was adapted from Kaggle to perform classification using AutoML and customized model through hypertuning. The task was to use the best of the 2 model was deployed and then used as a webservice to predict data. The best of the two models was AutoML with accuracy of 93.8% whereas Hyperdrive best model ran with accuracy of 86.8%. The AutoML model was registered, deployed and then used as a webservice for prediction.
 
+- [Capstone Project - Azure Machine Learning Engineer](#capstone-project---azure-machine-learning-engineer)
+  * [Dataset](#dataset)
+    + [Overview](#overview)
+    + [Task](#task)
+    + [Access](#access)
+  * [Automated ML](#automated-ml)
+    + [Results](#results)
+  * [Hyperparameter Tuning](#hyperparameter-tuning)
+    + [Results](#results-1)
+  * [Model Deployment](#model-deployment)
+  * [Screen Recording](#screen-recording)
+  * [Future Works](#future-works)
+
 
 ## Dataset
 
