@@ -58,15 +58,20 @@ The AutoML settings could have been changed by decreasing the experiment timeout
 
 ## Hyperparameter Tuning
 *TODO*: What kind of model did you choose for this experiment and why? Give an overview of the types of parameters and their ranges used for the hyperparameter search
-Logistic Regression was chosen as a model as its best suited for binary classification problem. 
+Logistic Regression was chosen as a model as its best suited for binary classification problem. The two types of hyperparameters selected were the maximum number of iterations and C i.e. inverse of regularatization strength. The value for number of iteration were choice for range of value from 10 to 31 and the value for C was uniform from 0 to 10.
 
 ### Results
 *TODO*: What are the results you got with your model? What were the parameters of the model? How could you have improved it?
-
+The best Hyperparameter model was XXXXX with an accuracy of 88%. It used multiple algorithms such as:
+- 
+- 
+- 
+- 
 *TODO* Remeber to provide screenshots of the `RunDetails` widget as well as a screenshot of the best model trained with it's parameters.
 
 ## Model Deployment
 *TODO*: Give an overview of the deployed model and instructions on how to query the endpoint with a sample input.
+The best AutoML model 'Voting Ensemble' of accuracy 95% was deployed 
 
 ## Screen Recording
 *TODO* Provide a link to a screen recording of the project in action. Remember that the screencast should demonstrate:
