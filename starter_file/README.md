@@ -1,6 +1,4 @@
-# Capstone Project - Azure Machine Learning Engineer
-The aim of the project is to classify heart disease dataset by comparing model performances of 2 models. In this project, heart disease dataset was adapted from Kaggle to perform classification using AutoML and customized model through hypertuning. The task was to use the best of the 2 model was deployed and then used as a webservice to predict data. The best of the two models was AutoML with accuracy of 93.8% whereas Hyperdrive best model ran with accuracy of 86.8%. The AutoML model was registered, deployed and then used as a webservice for prediction.
-
+# Table of Content
 - [Capstone Project - Azure Machine Learning Engineer](#capstone-project---azure-machine-learning-engineer)
   * [Dataset](#dataset)
     + [Overview](#overview)
@@ -13,6 +11,10 @@ The aim of the project is to classify heart disease dataset by comparing model p
   * [Model Deployment](#model-deployment)
   * [Screen Recording](#screen-recording)
   * [Future Works](#future-works)
+ 
+ 
+# Capstone Project - Azure Machine Learning Engineer
+The aim of the project is to classify heart disease dataset by comparing model performances of 2 models. In this project, heart disease dataset was adapted from Kaggle to perform classification using AutoML and customized model through hypertuning. The task was to use the best of the 2 model was deployed and then used as a webservice to predict data. The best of the two models was AutoML with accuracy of 93.8% whereas Hyperdrive best model ran with accuracy of 86.8%. The AutoML model was registered, deployed and then used as a webservice for prediction.
 
 
 ## Dataset
@@ -34,15 +36,15 @@ The dataset consists of data record of patient from their age, gender, blood pre
 13. thal: 3 = normal; 6 = fixed defect; 7 = reversible defect
 14. target column, 0 = heart disease not present, 1 = heart disease present
 
-In this project, the heart dataset was used to create an AutoML model and a customized model by tuning hyperparameters. The data was taken from Kaggle and preprocessed. Some large values on some attributes were standardized and binning was performed on the age column. After preprocessing the data, the data was fed into AutoML model and the best model was Voting Ensemble with 93.8% accuracy. The preprocessed data was also fed into a custom model of Logistic Regression was created where parameter hyperparameter tuning and the best model had an accuracy of 88.X%. The Voting Ensemble model from AutoML was deployed as a webservice and the rest endpoint HTTP was available.
+In this project, the heart dataset was used to create an AutoML model and a customized model by tuning hyperparameters. The data was taken from Kaggle and preprocessed. Some large values on some attributes were standardized and binning was performed on the age column. After preprocessing the data, the data was fed into AutoML model and the best model was Voting Ensemble with 93.8% accuracy. The preprocessed data was also fed into a custom model of Logistic Regression where parameter hyperparameter tuning was performed and the best model had an accuracy of 88.X%. 
 
 ### Task
-The classification is a binary classification with 0 representing an absence of heart disease and 1 representing presence of heart disease.
+This data is a binary classification with 0 representing an absence of heart disease and 1 representing presence of heart disease.
 The dataset consist information of patient that might be having heart disease. The target column has values 0 and 1 which determines if the patients has heart disease.
 
 The following steps were adapted for processing the data:
 1. On the age column, binning was performed into 7 groups from 0-7 to allow less computational cost.
-2. Standardization was performed on attributes trestbps, chol and thalach to reduce the value.
+2. Standardization was performed on attributes 'trestbps', 'chol' and 'thalach' to reduce the value. Standardization gives all features the same influence on the distance metric.
 3. Null value rows were dropped as part of data cleaning.
 
 ### Access
@@ -51,41 +53,42 @@ For the AutoML, the data was uploaded on Azure platform and called through the n
 For the Hyperdrive, the data was used as a csv file which was preprocessed and then used directly from the current directory.
 
 ## Automated ML
-*TODO*: Give an overview of the `automl` settings and configuration you used for this experiment
 AutoML settings is defined and passed to AutoML configuration as a parameters.
-AutoML settings:
-{
-    "experiment_timeout_minutes": 20",
-    max_concurrent_iterations": 5,
-    "primary_metric": 'AUC_weighted'
-}
+AutoML settings: <br />
+{<br />
+    "experiment_timeout_minutes": 20", <br />
+    max_concurrent_iterations": 5, <br /> 
+    "primary_metric": 'AUC_weighted' <br />
+}<br />
 "experiment_timeout_minutes":20
 As the dataset was just a csv file with upto 300+ rows of data- the experiment time was kept around 20 minutes to allow all iterations to finish before the experiment times out.
 
 "primary_metric": 'AUC_weighted'
 As this is aclassification problem, we chose the primary metric as 'AUC_weighted'. AUC weighted is the arithmetic mean of the score for each class, weighted by the number of true instances in each class.
 
-AutoMLConfig:
-(
-    compute_target=cpu_cluster,
-     task = 'classification',
-     training_data = ds_train, #train data
-     label_column_name = "target", #target column with 0 & 1
-     path = './pipeline-project3',
-     enable_early_stopping = True,
-     featurization = 'auto',
-     debug_log = 'automl_errors.log',
-     **automl_settings
-)
+AutoMLConfig: <br />
+(<br />
+    compute_target=cpu_cluster,<br />
+     task = 'classification',<br />
+     training_data = ds_train, #train data <br />
+     label_column_name = "target", #target column with 0 & 1 <br />
+     path = './pipeline-project3', <br />
+     enable_early_stopping = True, <br />
+     featurization = 'auto', <br />
+     debug_log = 'automl_errors.log', <br />
+     **automl_settings <br />
+) <br />
 
-task: classification
+task: classification <br />
 As the target column has values 0 and 1 i.e binary classification so the task is assigned classification for this problem.
 
-enable_early_stopping = True
+enable_early_stopping = True <br />
 This is enabled to initialise early stopping of the runs if the score of the different models are not improving over a period of time.
 
+featurization = 'auto' <br />
+This allows creating features that provide information on better differentiated patterns in the data. This is where the use of domain knowledge of the data is leveraged to create features that, in turn, help machine learning algorithms to learn better.
+
 ### Results
-*TODO*: What are the results you got with your automated ML model? What were the parameters of the model? How could you have improved it?
 The best AutoML model was Voting Ensemble with an accuracy of 93.8% while Stack Ensemble was second best with 93.6% and XGBoost Classifier being third best with 92.4% accuracy. The Voting Ensemble used SparseNormalizer and XGBoost Classifier with multiple parameters such as few mentioned below (Figure 1):
 - base_Score = 0.5
 - booster = 'gbtree'
@@ -108,11 +111,9 @@ We can also see the best Model by going to Experiment -> Run -> Child Runs ad ch
  ![alt text](https://github.com/army-mehak/Project3-Azure-ML/blob/master/starter_file/img/a-3.PNG)
  <p align="center">
   Figure 3: Best Model through Azure ML UI
-The AutoML could have been tried out with different settings such as enabling dnn and using a different primary metric. 
+The AutoML could have been tried out with different settings such as enabling dnn and using a different primary metric to help in improving the overall performance.
 
 ## Hyperparameter Tuning
-*TODO*: What kind of model did you choose for this experiment and why? Give an overview of the types of parameters and their ranges used for the hyperparameter search
-
 Logistic Regression was chosen as a model as its best suited for binary classification problem. The two types of hyperparameters selected were the maximum number of iterations and C i.e. inverse of regularatization strength with Random Parameter Sampling. Random Parameter Sampling was chosen as it supports early termination of low-performance runs. 
 The reason to choose C is that it allows increasing the magnitude of parameter values in order to reduce overfitting. It tries to minimize the error between predicted and actual value. The metric was assigned a float ranging from 0 to 10.  This is done to avoid too small or too large of C to not lead into overfitting or underfitting. So its a uniform value. Whereas the reason to choose max_iteration is that it allows to set a maximum number of iteration for a particular run that could avoid workspace timeout.
 
@@ -137,12 +138,12 @@ As shown in Figure 5, the Logistic Regression ran with highest accuracy around 8
 We can also see the best Model by going to Experiment -> Run -> Child Runs ad choosing the top model as its the best model for the run.
  ![alt text](https://github.com/army-mehak/Project3-Azure-ML/blob/master/starter_file/img/h-4.PNG)
  <p align="center">
-  Figure 3: Best Model through Azure ML UI
+  Figure 3: Best Model through Azure ML UI 
+ 
 The Hyperdrive model could have been tried with different types of Parameter Sampling such as Grid Sampling as it performs simple grid search over all possible value.
 
 ## Model Deployment
-*TODO*: Give an overview of the deployed model and instructions on how to query the endpoint with a sample input.
-The best AutoML model 'Voting Ensemble' of accuracy 93.8% was deployed using ACI WebSeervice. At first the model was deployed using Local WebService to debug the score.py() code and understanding status of the service. To test the endpoint, test input data was taken through train_test_split() method where its split as 70-30% of data. This test data was converted into a dictionary of key value pair. This dictionary was sent to the run() method in score.py() to perform prediction. Moreover, HTTP Post Request was also sent to the RestEndpoint to perform prediction. (Also shown in the recording)
+The best AutoML model 'Voting Ensemble' of accuracy 93.8% was deployed using ACI WebSeervice. At first the model was deployed using Local WebService to debug the score.py() code and understanding status of the service. To test the endpoint, test input data was taken through train_test_split() method where its split as 70-30% of data. This test data was converted into a dictionary of key value pair. This dictionary was sent to the run() method in score.py() to perform prediction. Moreover, HTTP Post Request was also sent to the RestEndpoint to perform prediction for test data. The returned prediceted value as shown in recording was 0. 
 
 ## Screen Recording
 Screen recording can be found in this link: https://www.youtube.com/watch?v=5a1r1Z4gTi0&ab_channel=MehakShahid
