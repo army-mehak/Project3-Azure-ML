@@ -78,39 +78,54 @@ The best AutoML model was Voting Ensemble with an accuracy of 93.8% while Stack 
 - booster = 'gbtree'
 - verbose = 10
 - verbosity = 10
--
-![alt text](https://github.com/army-mehak/Project3-Azure-ML/tree/b2/starter_file/img/automl-hyperparameters.png)
 
-
+![1](https://github.com/army-mehak/Project3-Azure-ML/blob/master/starter_file/img/automl-hyperparameters.png)
 <p align="center">
  Figure 1: Parameters for Voting Ensemble (The Best Model)
 </p>
 
 As shown in Figure 2, the AutoML run ran with Voting Ensemble being the best model with an accuracy of 93.8%. In AutoML run, around 50 models were tested and the Voting Ensemble was top.
+![2](https://github.com/army-mehak/Project3-Azure-ML/blob/master/starter_file/img/a-1.PNG)
 
-![alt text](https://github.com/army-mehak/Project3-Azure-ML/tree/master/starter_file/img/a-1.PNG)
-
-![alt text](https://github.com/army-mehak/Project3-Azure-ML/tree/master/starter_file/img/a-2.PNG)
+![3](https://github.com/army-mehak/Project3-Azure-ML/blob/master/starter_file/img/a-2.PNG)
 <p align="center">
  Figure 2: Run Widget showing the all model run
 
 We can also see the best Model by going to Experiment -> Run -> Child Runs ad choosing the top model as its the best model for the run.
- ![alt text](https://github.com/army-mehak/Project3-Azure-ML/tree/b2/starter_file/img/a-3.PNG)
+ ![alt text](https://github.com/army-mehak/Project3-Azure-ML/blob/master/starter_file/img/a-3.PNG)
  <p align="center">
   Figure 3: Best Model through Azure ML UI
+The AutoML could have been tried out with different settings such as enabling dnn and using a different primary metric. 
 
 ## Hyperparameter Tuning
 *TODO*: What kind of model did you choose for this experiment and why? Give an overview of the types of parameters and their ranges used for the hyperparameter search
-Logistic Regression was chosen as a model as its best suited for binary classification problem. The two types of hyperparameters selected were the maximum number of iterations and C i.e. inverse of regularatization strength. The value for number of iteration were choice for range of value from 10 to 31 and the value for C was uniform from 0 to 10.
+
+Logistic Regression was chosen as a model as its best suited for binary classification problem. The two types of hyperparameters selected were the maximum number of iterations and C i.e. inverse of regularatization strength with Random Parameter Sampling. Random Parameter Sampling was chosen as it supports early termination of low-performance runs. 
+The reason to choose C is that it allows increasing the magnitude of parameter values in order to reduce overfitting. It tries to minimize the error between predicted and actual value. The metric was assigned a float ranging from 0 to 10.  This is done to avoid too small or too large of C to not lead into overfitting or underfitting. So its a uniform value. Whereas the reason to choose max_iteration is that it allows to set a maximum number of iteration for a particular run that could avoid workspace timeout.
+
 
 ### Results
 *TODO*: What are the results you got with your model? What were the parameters of the model? How could you have improved it?
-The best Hyperparameter model was XXXXX with an accuracy of 88%. It used multiple algorithms such as:
--
--
--
--
-*TODO* Remeber to provide screenshots of the `RunDetails` widget as well as a screenshot of the best model trained with it's parameters.
+The best Hyperparameter model of Logistic Regression ran with an 86.8% accuracy which is 7% less than that of AutoML. The hyperpara
+- 'Regularization Strength:': 0.41825683985249884,
+-  'Max iterations:': 13
+![1](https://github.com/army-mehak/Project3-Azure-ML/blob/master/starter_file/img/h-3.PNG)
+<p align="center">
+ Figure 4:Parameters for Best Model
+</p>
+
+As shown in Figure 3 the AutoML run ran with Voting Ensemble being the best model with an accuracy of 93.8%. In AutoML run, around 50 models were tested and the Voting Ensemble was top.
+![2](https://github.com/army-mehak/Project3-Azure-ML/blob/master/starter_file/img/a-1.PNG)
+
+![3](https://github.com/army-mehak/Project3-Azure-ML/blob/master/starter_file/img/a-2.PNG)
+<p align="center">
+ Figure 2: Run Widget showing the all model run
+
+We can also see the best Model by going to Experiment -> Run -> Child Runs ad choosing the top model as its the best model for the run.
+ ![alt text](https://github.com/army-mehak/Project3-Azure-ML/blob/master/starter_file/img/a-3.PNG)
+ <p align="center">
+  Figure 3: Best Model through Azure ML UI
+The AutoML could have been tried out with different settings such as enabling dnn and using a different primary metric. 
 
 ## Model Deployment
 *TODO*: Give an overview of the deployed model and instructions on how to query the endpoint with a sample input.
