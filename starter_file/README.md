@@ -54,38 +54,40 @@ For the Hyperdrive, the data was used as a csv file which was preprocessed and t
 
 ## Automated ML
 AutoML settings is defined and passed to AutoML configuration as a parameters.
-AutoML settings: <br />
-{<br />
-    "experiment_timeout_minutes": 20", <br />
-    max_concurrent_iterations": 5, <br /> 
-    "primary_metric": 'AUC_weighted' <br />
-}<br />
-"experiment_timeout_minutes":20
+```
+AutoML_settings = {
+    "experiment_timeout_minutes": 20", 
+    max_concurrent_iterations": 5, 
+    "primary_metric": 'AUC_weighted' 
+}
+```
+* "experiment_timeout_minutes":20
 As the dataset was just a csv file with upto 300+ rows of data- the experiment time was kept around 20 minutes to allow all iterations to finish before the experiment times out.
 
-"primary_metric": 'AUC_weighted'
+* "primary_metric": 'AUC_weighted'
 As this is aclassification problem, we chose the primary metric as 'AUC_weighted'. AUC weighted is the arithmetic mean of the score for each class, weighted by the number of true instances in each class.
 
-AutoMLConfig: <br />
-(<br />
-    compute_target=cpu_cluster,<br />
-     task = 'classification',<br />
-     training_data = ds_train, #train data <br />
-     label_column_name = "target", #target column with 0 & 1 <br />
-     path = './pipeline-project3', <br />
-     enable_early_stopping = True, <br />
+```
+AutoMLConfig(
+    compute_target=cpu_cluster,
+     task = 'classification',
+     training_data = ds_train, #train data 
+     label_column_name = "target", #target column with 0 & 1
+     path = './pipeline-project3', 
+     enable_early_stopping = True,
      featurization = 'auto', <br />
-     debug_log = 'automl_errors.log', <br />
+     debug_log = 'automl_errors.log', 
      **automl_settings <br />
-) <br />
+) 
+```
 
-task: classification <br />
+* task: classification <br />
 As the target column has values 0 and 1 i.e binary classification so the task is assigned classification for this problem.
 
-enable_early_stopping = True <br />
+* enable_early_stopping = True <br />
 This is enabled to initialise early stopping of the runs if the score of the different models are not improving over a period of time.
 
-featurization = 'auto' <br />
+* featurization = 'auto' <br />
 This allows creating features that provide information on better differentiated patterns in the data. This is where the use of domain knowledge of the data is leveraged to create features that, in turn, help machine learning algorithms to learn better.
 
 ### Results
