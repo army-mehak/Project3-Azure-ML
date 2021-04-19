@@ -78,20 +78,20 @@ The best AutoML model was Voting Ensemble with an accuracy of 93.8% while Stack 
 - booster = 'gbtree'
 - verbose = 10
 - verbosity = 10
-![alt text](https://github.com/army-mehak/Project3_Udacity/blob/b2/img/automl-hyperparameters.png)
+![alt text](https://github.com/army-mehak/Project3-Azure-ML/tree/b2/starter_file/img/automl-hyperparameters.png)
 <p align="center">
  Figure 1: Parameters for Voting Ensemble (The Best Model)
 </p>
 
 As shown in Figure 2, the AutoML run ran with Voting Ensemble being the best model with an accuracy of 93.8%. In AutoML run, around 50 models were tested and the Voting Ensemble was top.
 
-![alt text](https://github.com/army-mehak/Project3_Udacity/blob/b2/img/a-1.PNG)
-![alt text](https://github.com/army-mehak/Project3_Udacity/blob/b2/img/a-2.PNG)
+![alt text](https://github.com/army-mehak/Project3-Azure-ML/tree/b2/starter_file/img/a-1.PNG)
+![alt text](https://github.com/army-mehak/Project3-Azure-ML/tree/b2/starter_file//img/a-2.PNG)
 <p align="center">
  Figure 2: Run Widget showing the all model run
 
 We can also see the best Model by going to Experiment -> Run -> Child Runs ad choosing the top model as its the best model for the run.
- ![alt text](https://github.com/army-mehak/Project3_Udacity/blob/b2/img/a-3.PNG)
+ ![alt text](https://github.com/army-mehak/Project3-Azure-ML/tree/b2/starter_file/img/a-3.PNG)
  <p align="center">
   Figure 3: Best Model through Azure ML UI
 
