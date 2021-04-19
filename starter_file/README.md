@@ -1,5 +1,5 @@
 # Capstone Project - Azure Machine Learning Engineer
-The aim of the project is to classify heart disease dataset by comparing model performances of 2 models. In this project, heart disease dataset was adapted from Kaggle to perform classification using AutoML and customized model through hypertuning. The best of the 2 model was deployed and then used as a webservice to predict data. 
+The aim of the project is to classify heart disease dataset by comparing model performances of 2 models. In this project, heart disease dataset was adapted from Kaggle to perform classification using AutoML and customized model through hypertuning. The task was to use the best of the 2 model was deployed and then used as a webservice to predict data. The best of the two models was AutoML with accuracy of 95% whereas Hyperdrive best model ran with accuracy of 88%. The AutoML model was registered, deployed and then used as a webservice for prediction.
 
 
 ## Dataset
@@ -30,7 +30,7 @@ The dataset consist information of patient that might be having heart disease. T
 The following steps were adapted for processing the data:
 1. On the age column, binning was performed into 7 groups from 0-7 to allow less computational cost.
 2. Standardization was performed on attributes trestbps, chol and thalach to reduce the value.
-3. Null value rows were dropped.
+3. Null value rows were dropped as part of data cleaning.
 
 ### Access
 The dataset can be downloaded from Kaggle into your project workspace as blob data URI. The data can then further be broken down into train and test data for training and predicting.
@@ -39,7 +39,14 @@ For the Hyperdrive, the data was used as a csv file which was preprocessed and t
 
 ## Automated ML
 *TODO*: Give an overview of the `utoml` settings and configuration you used for this experiment
-AutoML settings is defined and passed to AutoML configuration as a parameters. AutoML settings: {"experiment_timeout_minutes": 20", max_concurrent_iterations": 5,"primary_metric": 'AUC_weighted'}. In AutoML configuration, the train data was passed as parameter along with the type of problem this is i.e. classification.
+AutoML settings is defined and passed to AutoML configuration as a parameters. 
+AutoML settings: 
+{
+    "experiment_timeout_minutes": 20", 
+    max_concurrent_iterations": 5,
+    "primary_metric": 'AUC_weighted'
+}
+In AutoML configuration, the train data was passed as parameter along with the type of problem this is i.e. classification.
 
 ### Results
 *TODO*: What are the results you got with your automated ML model? What were the parameters of the model? How could you have improved it?
