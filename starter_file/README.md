@@ -1,4 +1,4 @@
-# Table of Content
+# Table of Contents
 - [Capstone Project - Azure Machine Learning Engineer](#capstone-project---azure-machine-learning-engineer)
   * [Dataset](#dataset)
     + [Overview](#overview)
