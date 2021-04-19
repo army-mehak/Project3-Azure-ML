@@ -1,5 +1,5 @@
 # Capstone Project - Azure Machine Learning Engineer
-The aim of the project is to classify heart disease dataset by comparing model performances of 2 models. In this project, heart disease dataset was adapted from Kaggle to perform classification using AutoML and customized model through hypertuning. The task was to use the best of the 2 model was deployed and then used as a webservice to predict data. The best of the two models was AutoML with accuracy of 95% whereas Hyperdrive best model ran with accuracy of 88%. The AutoML model was registered, deployed and then used as a webservice for prediction.
+The aim of the project is to classify heart disease dataset by comparing model performances of 2 models. In this project, heart disease dataset was adapted from Kaggle to perform classification using AutoML and customized model through hypertuning. The task was to use the best of the 2 model was deployed and then used as a webservice to predict data. The best of the two models was AutoML with accuracy of 93.8% whereas Hyperdrive best model ran with accuracy of 88%. The AutoML model was registered, deployed and then used as a webservice for prediction.
 
 
 ## Dataset
@@ -21,7 +21,7 @@ The dataset consists of data record of patient from their age, gender, blood pre
 13. thal: 3 = normal; 6 = fixed defect; 7 = reversible defect
 14. target column, 0 = heart disease not present, 1 = heart disease present
 
-In this project, the heart dataset was used to create an AutoML model and a customized model by tuning hyperparameters. The data was taken from Kaggle and preprocessed. Some large values on some attributes were standardized and binning was performed on the age column. After preprocessing the data, the data was fed into AutoML model and the best model was Voting Ensemble with 92.X% accuracy. The preprocessed data was also fed into a custom model of Logistic Regression was created where parameter hyperparameter tuning and the best model had an accuracy of 88.X%. The Voting Ensemble model from AutoML was deployed as a webservice and the rest endpoint HTTP was available.
+In this project, the heart dataset was used to create an AutoML model and a customized model by tuning hyperparameters. The data was taken from Kaggle and preprocessed. Some large values on some attributes were standardized and binning was performed on the age column. After preprocessing the data, the data was fed into AutoML model and the best model was Voting Ensemble with 93.8% accuracy. The preprocessed data was also fed into a custom model of Logistic Regression was created where parameter hyperparameter tuning and the best model had an accuracy of 88.X%. The Voting Ensemble model from AutoML was deployed as a webservice and the rest endpoint HTTP was available.
 
 ### Task
 The classification is a binary classification with 0 representing an absence of heart disease and 1 representing presence of heart disease.
@@ -38,7 +38,7 @@ For the AutoML, the data was uploaded on Azure platform and called through the n
 For the Hyperdrive, the data was used as a csv file which was preprocessed and then used directly from the current directory.
 
 ## Automated ML
-*TODO*: Give an overview of the `utoml` settings and configuration you used for this experiment
+*TODO*: Give an overview of the `automl` settings and configuration you used for this experiment
 AutoML settings is defined and passed to AutoML configuration as a parameters. 
 AutoML settings: 
 {
@@ -46,19 +46,46 @@ AutoML settings:
     max_concurrent_iterations": 5,
     "primary_metric": 'AUC_weighted'
 }
-In AutoML configuration, the train data was passed as parameter along with the type of problem this is i.e. classification.
+"experiment_timeout_minutes":20
+As the dataset was just a csv file with upto 300+ rows of data- the experiment time was kept around 20 minutes to allow all iterations to finish before the experiment times out.
+
+"primary_metric": 'AUC_weighted'
+As this is aclassification problem, we chose the primary metric as 'AUC_weighted'. AUC weighted is the arithmetic mean of the score for each class, weighted by the number of true instances in each class.
+
+AutoMLConfig:
+(
+    compute_target=cpu_cluster,
+     task = 'classification',
+     training_data = ds_train, #train data
+     label_column_name = "target", #target column with 0 & 1
+     path = './pipeline-project3',
+     enable_early_stopping = True,
+     featurization = 'auto',
+     debug_log = 'automl_errors.log',
+     **automl_settings
+)
+
+task: classification
+As the target column has values 0 and 1 i.e binary classification so the task is assigned classification for this problem.
+
+enable_early_stopping = True
+This is enabled to initialise early stopping of the runs if the score of the different models are not improving over a period of time.
 
 ### Results
 *TODO*: What are the results you got with your automated ML model? What were the parameters of the model? How could you have improved it?
-The best AutoML model was Voting Ensemble with an accuracy of 95%. The Voting Ensemble used multiple algorithms such as:
-- 
-- 
-- 
-- 
+The best AutoML model was Voting Ensemble with an accuracy of 93.8% while Stack Ensemble was second best with 93.6% and XGBoost Classifier being third best with 92.4% accuracy. The Voting Ensemble used SparseNormalizer and XGBoost Classifier with multiple parameters such as few mentioned below:
+- base_Score = 0.5
+- booster = 'gbtree'
+- verbose = 10
+- verbosity = 10
 The AutoML settings could have been changed by decreasing the experiment timeout minutes as the simple classification was quick to run.
 
 
 *TODO* Remeber to provide screenshots of the `RunDetails` widget as well as a screenshot of the best model trained with it's parameters.
+![alt text](https://github.com/army-mehak/nd00333_AZMLND_C2/blob/master/img/s1.PNG)
+<p align="center">
+ Figure X: 'bank-marketing' dataset uploaded successfully
+</p>
 (add screenshot of run widget)
 (add screenshot of best model)
 (add screenshot through azure)
@@ -81,10 +108,5 @@ The best Hyperparameter model was XXXXX with an accuracy of 88%. It used multipl
 The best AutoML model 'Voting Ensemble' of accuracy 95% was deployed 
 
 ## Screen Recording
-*TODO* Provide a link to a screen recording of the project in action. Remember that the screencast should demonstrate:
-- A working model
-- Demo of the deployed  model
-- Demo of a sample request sent to the endpoint and its response
+Screen recording can be found in this link: https://www.youtube.com/watch?v=5a1r1Z4gTi0&ab_channel=MehakShahid
 
-## Standout Suggestions
-*TODO (Optional):* This is where you can provide information about any standout suggestions that you have attempted.
