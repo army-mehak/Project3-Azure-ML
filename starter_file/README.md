@@ -25,7 +25,7 @@ In this project, the heart dataset was used to create an AutoML model and a cust
 
 ### Task
 The classification is a binary classification with 0 representing an absence of heart disease and 1 representing presence of heart disease.
-The dataset consist information of patient that might be having heart disease. The target column has values 0 and 1 which determines if the patients has heart disease. 
+The dataset consist information of patient that might be having heart disease. The target column has values 0 and 1 which determines if the patients has heart disease.
 
 The following steps were adapted for processing the data:
 1. On the age column, binning was performed into 7 groups from 0-7 to allow less computational cost.
@@ -39,10 +39,10 @@ For the Hyperdrive, the data was used as a csv file which was preprocessed and t
 
 ## Automated ML
 *TODO*: Give an overview of the `automl` settings and configuration you used for this experiment
-AutoML settings is defined and passed to AutoML configuration as a parameters. 
-AutoML settings: 
+AutoML settings is defined and passed to AutoML configuration as a parameters.
+AutoML settings:
 {
-    "experiment_timeout_minutes": 20", 
+    "experiment_timeout_minutes": 20",
     max_concurrent_iterations": 5,
     "primary_metric": 'AUC_weighted'
 }
@@ -73,22 +73,27 @@ This is enabled to initialise early stopping of the runs if the score of the dif
 
 ### Results
 *TODO*: What are the results you got with your automated ML model? What were the parameters of the model? How could you have improved it?
-The best AutoML model was Voting Ensemble with an accuracy of 93.8% while Stack Ensemble was second best with 93.6% and XGBoost Classifier being third best with 92.4% accuracy. The Voting Ensemble used SparseNormalizer and XGBoost Classifier with multiple parameters such as few mentioned below:
+The best AutoML model was Voting Ensemble with an accuracy of 93.8% while Stack Ensemble was second best with 93.6% and XGBoost Classifier being third best with 92.4% accuracy. The Voting Ensemble used SparseNormalizer and XGBoost Classifier with multiple parameters such as few mentioned below (Figure 1):
 - base_Score = 0.5
 - booster = 'gbtree'
 - verbose = 10
 - verbosity = 10
-The AutoML settings could have been changed by decreasing the experiment timeout minutes as the simple classification was quick to run.
-
-
-*TODO* Remeber to provide screenshots of the `RunDetails` widget as well as a screenshot of the best model trained with it's parameters.
-![alt text](https://github.com/army-mehak/nd00333_AZMLND_C2/blob/master/img/s1.PNG)
+![alt text](https://github.com/army-mehak/Project3_Udacity/blob/b2/img/automl-hyperparameters.png)
 <p align="center">
- Figure X: 'bank-marketing' dataset uploaded successfully
+ Figure 1: Parameters for Voting Ensemble (The Best Model)
 </p>
-(add screenshot of run widget)
-(add screenshot of best model)
-(add screenshot through azure)
+
+As shown in Figure 2, the AutoML run ran with Voting Ensemble being the best model with an accuracy of 93.8%. In AutoML run, around 50 models were tested and the Voting Ensemble was top.
+
+![alt text](https://github.com/army-mehak/Project3_Udacity/blob/b2/img/a-1.PNG)
+![alt text](https://github.com/army-mehak/Project3_Udacity/blob/b2/img/a-2.PNG)
+<p align="center">
+ Figure 2: Run Widget showing the all model run
+
+We can also see the best Model by going to Experiment -> Run -> Child Runs ad choosing the top model as its the best model for the run.
+ ![alt text](https://github.com/army-mehak/Project3_Udacity/blob/b2/img/a-3.PNG)
+ <p align="center">
+  Figure 3: Best Model through Azure ML UI
 
 ## Hyperparameter Tuning
 *TODO*: What kind of model did you choose for this experiment and why? Give an overview of the types of parameters and their ranges used for the hyperparameter search
@@ -97,16 +102,15 @@ Logistic Regression was chosen as a model as its best suited for binary classifi
 ### Results
 *TODO*: What are the results you got with your model? What were the parameters of the model? How could you have improved it?
 The best Hyperparameter model was XXXXX with an accuracy of 88%. It used multiple algorithms such as:
-- 
-- 
-- 
-- 
+-
+-
+-
+-
 *TODO* Remeber to provide screenshots of the `RunDetails` widget as well as a screenshot of the best model trained with it's parameters.
 
 ## Model Deployment
 *TODO*: Give an overview of the deployed model and instructions on how to query the endpoint with a sample input.
-The best AutoML model 'Voting Ensemble' of accuracy 95% was deployed 
+The best AutoML model 'Voting Ensemble' of accuracy 95% was deployed
 
 ## Screen Recording
 Screen recording can be found in this link: https://www.youtube.com/watch?v=5a1r1Z4gTi0&ab_channel=MehakShahid
-
