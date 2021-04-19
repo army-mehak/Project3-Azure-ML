@@ -1,5 +1,5 @@
 # Capstone Project - Azure Machine Learning Engineer
-The aim of the project is to classify heart disease dataset by comparing model performances of 2 models. In this project, heart disease dataset was adapted from Kaggle to perform classification using AutoML and customized model through hypertuning. The task was to use the best of the 2 model was deployed and then used as a webservice to predict data. The best of the two models was AutoML with accuracy of 93.8% whereas Hyperdrive best model ran with accuracy of 88%. The AutoML model was registered, deployed and then used as a webservice for prediction.
+The aim of the project is to classify heart disease dataset by comparing model performances of 2 models. In this project, heart disease dataset was adapted from Kaggle to perform classification using AutoML and customized model through hypertuning. The task was to use the best of the 2 model was deployed and then used as a webservice to predict data. The best of the two models was AutoML with accuracy of 93.8% whereas Hyperdrive best model ran with accuracy of 86.8%. The AutoML model was registered, deployed and then used as a webservice for prediction.
 
 
 ## Dataset
@@ -114,22 +114,26 @@ The best Hyperparameter model of Logistic Regression ran with an 86.8% accuracy 
  Figure 4:Parameters for Best Model
 </p>
 
-As shown in Figure 3 the AutoML run ran with Voting Ensemble being the best model with an accuracy of 93.8%. In AutoML run, around 50 models were tested and the Voting Ensemble was top.
-![2](https://github.com/army-mehak/Project3-Azure-ML/blob/master/starter_file/img/a-1.PNG)
+As shown in Figure 5, the Logistic Regression ran with highest accuracy around 86.6% with max total runs of 20.
+![2](https://github.com/army-mehak/Project3-Azure-ML/blob/master/starter_file/img/h-1.PNG)
 
-![3](https://github.com/army-mehak/Project3-Azure-ML/blob/master/starter_file/img/a-2.PNG)
+![3](https://github.com/army-mehak/Project3-Azure-ML/blob/master/starter_file/img/h-2.PNG)
 <p align="center">
- Figure 2: Run Widget showing the all model run
+ Figure 6: Run Widget showing the all run
 
 We can also see the best Model by going to Experiment -> Run -> Child Runs ad choosing the top model as its the best model for the run.
- ![alt text](https://github.com/army-mehak/Project3-Azure-ML/blob/master/starter_file/img/a-3.PNG)
+ ![alt text](https://github.com/army-mehak/Project3-Azure-ML/blob/master/starter_file/img/h-4.PNG)
  <p align="center">
   Figure 3: Best Model through Azure ML UI
-The AutoML could have been tried out with different settings such as enabling dnn and using a different primary metric. 
+The Hyperdrive model could have been tried with different types of Parameter Sampling such as Grid Sampling as it performs simple grid search over all possible value.
 
 ## Model Deployment
 *TODO*: Give an overview of the deployed model and instructions on how to query the endpoint with a sample input.
-The best AutoML model 'Voting Ensemble' of accuracy 95% was deployed
+The best AutoML model 'Voting Ensemble' of accuracy 93.8% was deployed using ACI WebSeervice. At first the model was deployed using Local WebService to debug the score.py() code and understanding status of the service. To test the endpoint, test input data was taken through train_test_split() method where its split as 70-30% of data. This test data was converted into a dictionary of key value pair. This dictionary was sent to the run() method in score.py() to perform prediction. Moreover, HTTP Post Request was also sent to the RestEndpoint to perform prediction. (Also shown in the recording)
 
 ## Screen Recording
 Screen recording can be found in this link: https://www.youtube.com/watch?v=5a1r1Z4gTi0&ab_channel=MehakShahid
+
+## Future Works
+This dataset could be further tested with more customised model and different hyperparameter settings to allow the best model. In Hyperdrive, the data can be tested with Grid Sampling and Bayesian Sampling. Other models such as KNN, SVM or Decision Trees can be tested on to provide the best model.
+The best model can then be deployed as web service and can be used by external application through Authentication key.
