@@ -140,7 +140,7 @@ As shown in Figure 5, the Logistic Regression ran with highest accuracy around 8
 We can also see the best Model by going to Experiment -> Run -> Child Runs ad choosing the top model as its the best model for the run.
  ![alt text](https://github.com/army-mehak/Project3-Azure-ML/blob/master/starter_file/img/h-4.PNG)
  <p align="center">
-  Figure 3: Best Model through Azure ML UI 
+  Figure 7: Best Model through Azure ML UI 
  
 The Hyperdrive model could have been tried with different types of Parameter Sampling such as Grid Sampling as it performs simple grid search over all possible value.
 
