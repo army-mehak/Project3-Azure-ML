@@ -1,0 +1,14 @@
+channels:
+- conda-forge
+dependencies:
+- python=3.6.2
+- pip:
+  - azureml-defaults
+  - inference-schema[numpy-support]
+  - joblib
+  - numpy
+  - azureml-automl-core
+  - azureml-automl-runtime
+  - packaging
+  - xgboost==0.90
+  - scikit-learn=={}'.format(sklearn.__version__)
