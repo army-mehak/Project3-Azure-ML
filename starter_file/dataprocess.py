@@ -12,29 +12,27 @@ from azureml.data.dataset_factory import TabularDatasetFactory
 from azureml.core import Dataset, Datastore
 from azureml.data.datapath import DataPath
 from azureml.core import Workspace
+from sklearn.preprocessing import StandardScaler
+
 
 
 def clean_data(dataset):
     ### standardization
-    x_df = dataset.to_pandas_dataframe().dropna() #drop any rows with null values
+    x_df = dataset.dropna() #drop any rows with null values
     y_df = x_df.pop("target")
     x_df[['trestbps', 'chol', 'thalach']] = StandardScaler().fit_transform(x_df[['trestbps', 'chol', 'thalach']])
-    #print(x_df)
-    #print(y_df)
 
     ### binning
-    min_value = df['age'].min()
-    max_value = df['age'].max()
-    bins = np.linspace(min_value,max_value,7)
-    #print(bins)
-    labels = ['29-37', '38-45', '46-53', '54-61', '62-69', '70-77']
-    x_df['age_bins'] = pd.cut(x_df['age'], bins=bins, labels=labels, include_lowest=True)
-    drop_age = x_df.pop("age") #drop age column
+    min_value = x_df['age'].min()
+    max_value = x_df['age'].max()
+    x_df['age_bins'] = pd.cut(x_df['age'], bins=7, labels = False) #bins=bins, labels=labels, include_lowest=True)
+    
+    ### drop age column
+    drop_age = x_df.pop("age") 
 
     ### rearrange columns
     x_df = x_df[['age_bins', 'sex', 'cp', 'trestbps', 'chol', 'fbs', 'restecg', 'thalach', 'exang', 'oldpeak', 'slope', 'ca', 'thal']]
-    #pd.set_option('display.max_rows', x_df.shape[0]+1)
-    #print(x_df)
+  
     return x_df, y_df
     
 
@@ -42,15 +40,15 @@ def main():
     # Add arguments to script
     parser = argparse.ArgumentParser(description= 'This is Training Script of Tabular Dataset')
 
-    parser.add_argument('--batch_size', type=int, default=10, help="The batch size")
+    parser.add_argument('--C', type=float, default=1.0, help="Inverse of regularization strength. Smaller values cause stronger regularization")
     parser.add_argument('--max_iter', type=int, default=100, help="Maximum number of iterations to converge")
 
     args = parser.parse_args()
 
-    run.log("Batch size:", np.int(args.batch_size))
+    run.log("Regularization Strength:", np.float(args.C))
     run.log("Max iterations:", np.int(args.max_iter))
 
-    model = LogisticRegression(batch_size=args.batch_size, max_iter=args.max_iter).fit(x_train, y_train)
+    model = LogisticRegression(max_iter=args.max_iter, C=args.C).fit(x_train, y_train)
 
     accuracy = model.score(x_test, y_test)
     run.log("Accuracy", np.float(accuracy))
@@ -60,11 +58,8 @@ def main():
     
 # TODO: Create TabularDataset using TabularDatasetFactory
 # Data is located at: 
-ws = Workspace.from_config()
-if "heart-dataset" in ws.datasets.keys(): 
-        found = True
-        ds = ws.datasets[key] 
-
+ds = pd.read_csv('heart.csv')
+#ds = TabularDatasetFactory.from_delimited_files("heart.csv")
 x, y = clean_data(ds)
 
 # TODO: Split data into train and test sets.
