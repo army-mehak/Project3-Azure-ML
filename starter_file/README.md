@@ -78,7 +78,10 @@ The best AutoML model was Voting Ensemble with an accuracy of 93.8% while Stack 
 - booster = 'gbtree'
 - verbose = 10
 - verbosity = 10
+-
 ![alt text](https://github.com/army-mehak/Project3-Azure-ML/tree/b2/starter_file/img/automl-hyperparameters.png)
+
+
 <p align="center">
  Figure 1: Parameters for Voting Ensemble (The Best Model)
 </p>
@@ -86,6 +89,7 @@ The best AutoML model was Voting Ensemble with an accuracy of 93.8% while Stack 
 As shown in Figure 2, the AutoML run ran with Voting Ensemble being the best model with an accuracy of 93.8%. In AutoML run, around 50 models were tested and the Voting Ensemble was top.
 
 ![alt text](https://github.com/army-mehak/Project3-Azure-ML/tree/master/starter_file/img/a-1.PNG)
+
 ![alt text](https://github.com/army-mehak/Project3-Azure-ML/tree/master/starter_file/img/a-2.PNG)
 <p align="center">
  Figure 2: Run Widget showing the all model run
